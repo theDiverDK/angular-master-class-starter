@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'trm-contacts-app',
-  templateUrl: './app.component.html',
+  template:'<md-toolbar color="primary">Contacts</md-toolbar>',
+//  templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
 export class ContactsAppComponent {
