@@ -1,0 +1,8 @@
+<md-toolbar color="primary">
+  Contacts</md-toolbar>
+<md-list>
+  <a md-list-item [routerLink]="['/contact', contact.id]" *ngFor="let contact of contacts">
+    <img md-list-avatar [src]="contact?.image" alt="Picture of {{contact?.name}}" class="circle">
+    <h3 md-line>{{contact?.name}}</h3>
+  </a>
+</md-list>

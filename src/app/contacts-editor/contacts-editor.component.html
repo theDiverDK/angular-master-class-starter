@@ -1,0 +1,28 @@
+<div class="trm-contacts-detail">
+  <form>
+    <md-card *ngIf="contact">
+      <md-card-content>
+        <dl>
+          <dt>Name:</dt>
+          <dd> <input [(ngModel)]="contact.name" name="name" /></dd>
+          <dt>Phone:</dt>
+          <dd><input [(ngModel)]="contact.phone" name="phone" /></dd>
+          <dt>Website:</dt>
+          <dd><input [(ngModel)]="contact.website" name="website" /></dd>
+          <dt>Birthday:</dt>
+          <dd><input [(ngModel)]="contact.birthday" name="birthday" /></dd>
+          <dt>Street:</dt>
+          <dd><input [(ngModel)]="contact.address.street" name="street" /></dd>
+          <dt>Zip:</dt>
+          <dd><input [(ngModel)]="contact.address.zip" name="zip" /></dd>
+          <dt>City:</dt>
+          <dd><input [(ngModel)]="contact.address.city" name="city" /></dd>
+        </dl>
+      </md-card-content>
+      <md-card-actions fxLayout fxLayoutAlign="center center">
+        <a md-button (click)="save(contact)" title="Save">Save</a>
+        <a md-button (click)="cancel()" title="Cancel">Cancel</a>
+      </md-card-actions>
+    </md-card>
+  </form>
+</div>
