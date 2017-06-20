@@ -1,34 +1,32 @@
-import { Component } from '@angular/core';
-import { Contact } from './models/contact';
+import { Component, OnInit } from '@angular/core';
+import { Contact } from './models/contact'
+import { ContactService } from './contact.service'
 
 @Component({
   selector: 'trm-contacts-app',
   template: `
-  <md-toolbar color="primary">Contacts</md-toolbar>
-  <md-list>
-    <md-list-item>
-      <img md-list-avatar [src]="contact.image" alt="Picture of {{contact.name}}">
-      <h3 md-line>{{contact.name}}</h3>
-    </md-list-item>
-  </md-list>`,
+    <md-toolbar color="primary">Contacts</md-toolbar>
+    <md-list>
+      <md-list-item *ngFor="let contact of contacts; trackBy:identify">
+        <img md-list-avatar [src]="contact.image" alt="Picture of {{contact.name}}" class="circle">
+        <h3 md-line>{{contact.name}}</h3>
+        <h1></h1>
+      </md-list-item>
+    </md-list>`,
   styleUrls: ['./app.component.scss']
 })
-export class ContactsAppComponent {
-  title = 'Angular 2 Master Class setup works!';
 
-  contact: Contact = {
-    id: 6,
-    name: 'Diana Ellis',
-    email: '',
-    phone: '',
-    birthday: '',
-    website: '',
-    image: '/assets/images/6.jpg',
-    address: {
-      street: '6554 park lane',
-      zip: '43378',
-      city: 'Rush',
-      country: 'United States'
-    }
+export class ContactsAppComponent implements OnInit {
+  title = 'Angular 2 Master Class setup works!';
+  contacts: Array<Contact>;
+  identify: number;
+
+  constructor(private contactService: ContactService) {
+
   }
+
+  ngOnInit() {
+    this.contacts = this.contactService.getContacts();
+  }
+
 }
