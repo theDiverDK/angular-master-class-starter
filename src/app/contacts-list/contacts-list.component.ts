@@ -34,7 +34,5 @@ export class ContactsListComponent implements OnInit {
           // meget af dette kode burde ligge i servicen, kun merge skal være her.
           // tilføj onErrorResume og return tom svar, både på getCOntacts, og search
           // så kan app'en håndtere at den mister forbindelse til serveren midlertidigt.
-
-
     }
 }
