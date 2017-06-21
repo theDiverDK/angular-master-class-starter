@@ -16,12 +16,10 @@ import { ContactsDetailsComponent } from './contacts-detail/contacts-detail.comp
 import { FormsModule } from '@angular/forms';
 import { ContactsEditorComponent } from './contacts-editor/contacts-editor.component';
 import { ContactsDetailViewComponent } from './contacts-detail-view/contacts-detail-view.component';
-import { TabComponent } from './tabs/tab/tab.component';
-import { TabsComponent } from './tabs/tabs/tabs.component';
 
 
 @NgModule({
-  declarations: [ContactsAppComponent, ContactsListComponent, ContactsDetailsComponent, ContactsEditorComponent, ContactsDetailViewComponent, TabComponent, TabsComponent],
+  declarations: [ContactsAppComponent, ContactsListComponent, ContactsDetailsComponent, ContactsEditorComponent, ContactsDetailViewComponent],
   imports: [
     HttpModule,
     FormsModule,
