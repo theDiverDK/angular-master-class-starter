@@ -10,22 +10,32 @@ import { Observable } from "rxjs/Observable";
 export class ContactService {
   constructor(private http: Http) { }
 
+  apiEndpoint: string = `http://localhost:4201/api`;
+
   getContacts() {
-    return this.http.get(`http://localhost:4201/api/contacts`)
+    return this.http.get(`${this.apiEndpoint}/contacts`)
       .map(res => res.json())
       .map(data => data.items);
   }
 
   getContact(id: string) {
-    return this.http.get(`http://localhost:4201/api/contacts/${id}`)
+    return this.http.get(`${this.apiEndpoint}/contacts/${id}`)
       .map(res => res.json())
       .map(data => data.item);
   }
 
   updateContact(contact: Contact) {
-    let url = `http://localhost:4201/api/contacts/${contact.id}`;
+    let url = `${this.apiEndpoint}/contacts/${contact.id}`;
 
     return this.http.put(url, contact);
+  }
+
+  search(term: string){
+    let url = `${this.apiEndpoint}/search?text=${term}`;
+
+    return this.http.get(url)
+      .map(res => res.json())
+      .map(data => data.items);
   }
 }
 
