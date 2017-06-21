@@ -1,3 +1,4 @@
+import { EventBusService } from './shared/eventBusService';
 import { RouterModule } from '@angular/router'
 import { APP_ROUTES } from './app.routes'
 import { HttpModule } from '@angular/http';
@@ -29,7 +30,7 @@ import { ContactsDetailViewComponent } from './contacts-detail-view/contacts-det
     FlexLayoutModule,
     RouterModule.forRoot(APP_ROUTES)
   ],
-  providers: [ContactService],
+  providers: [ContactService, EventBusService],
   bootstrap: [ContactsAppComponent]
 })
 export class ContactsModule {
