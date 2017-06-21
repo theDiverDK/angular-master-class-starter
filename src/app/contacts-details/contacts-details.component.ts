@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
@@ -11,7 +12,7 @@ import { ContactService } from './../contact.service';
 })
 
 export class ContactsDetailsComponent implements OnInit {
-  contact: Contact;
+  contact: Observable<Contact>;
 
   constructor(private contactService: ContactService, private route: ActivatedRoute) {
   }
@@ -19,6 +20,6 @@ export class ContactsDetailsComponent implements OnInit {
   ngOnInit() {
     let id = this.route.snapshot.params['id'];
 
-    this.contactService.getContact(id).subscribe(contact => this.contact = contact);
+    this.contact = this.contactService.getContact(id);
   }
 }

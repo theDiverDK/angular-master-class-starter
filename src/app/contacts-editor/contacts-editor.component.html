@@ -1,6 +1,6 @@
 <div class="trm-contacts-detail">
   <form>
-    <md-card *ngIf="contact">
+    <md-card *ngIf="contact | async as contact">
       <md-card-content>
         <dl>
           <dt>Name:</dt>

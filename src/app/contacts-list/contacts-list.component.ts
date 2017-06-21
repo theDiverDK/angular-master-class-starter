@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs/Observable';
 import { Component, OnInit } from '@angular/core';
 import { Contact } from "../models/contact";
 import { ContactService } from "../contact.service";
@@ -10,12 +11,12 @@ import { ContactService } from "../contact.service";
 
 export class ContactsListComponent implements OnInit {
   title = 'Angular 2 Master Class setup works!';
-  contacts: Array<Contact>;
+  contacts: Observable<Array<Contact>>;
 
   constructor(private contactService: ContactService) {
   }
 
   ngOnInit() {
-    this.contactService.getContacts().subscribe(contacts => this.contacts = contacts);
+    this.contacts = this.contactService.getContacts();
   }
 }
