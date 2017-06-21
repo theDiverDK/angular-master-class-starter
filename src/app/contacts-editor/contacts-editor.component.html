@@ -2,22 +2,30 @@
   <form>
     <md-card *ngIf="contact | async as contact">
       <md-card-content>
-        <dl>
-          <dt>Name:</dt>
-          <dd> <input [(ngModel)]="contact.name" name="name" /></dd>
-          <dt>Phone:</dt>
-          <dd><input [(ngModel)]="contact.phone" name="phone" /></dd>
-          <dt>Website:</dt>
-          <dd><input [(ngModel)]="contact.website" name="website" /></dd>
-          <dt>Birthday:</dt>
-          <dd><input [(ngModel)]="contact.birthday" name="birthday" /></dd>
-          <dt>Street:</dt>
-          <dd><input [(ngModel)]="contact.address.street" name="street" /></dd>
-          <dt>Zip:</dt>
-          <dd><input [(ngModel)]="contact.address.zip" name="zip" /></dd>
-          <dt>City:</dt>
-          <dd><input [(ngModel)]="contact.address.city" name="city" /></dd>
-        </dl>
+        <trm-tabs>
+          <trm-tab title="General" fxLayout="column">
+            <dl>
+              <dt>Name:</dt>
+              <dd> <input [(ngModel)]="contact.name" name="name" /></dd>
+              <dt>Phone:</dt>
+              <dd><input [(ngModel)]="contact.phone" name="phone" /></dd>
+              <dt>Website:</dt>
+              <dd><input [(ngModel)]="contact.website" name="website" /></dd>
+              <dt>Birthday:</dt>
+              <dd><input [(ngModel)]="contact.birthday" name="birthday" /></dd>
+            </dl>
+          </trm-tab>
+          <trm-tab title="Address" fxLayout="column">
+            <dl>
+              <dt>Street:</dt>
+              <dd><input [(ngModel)]="contact.address.street" name="street" /></dd>
+              <dt>Zip:</dt>
+              <dd><input [(ngModel)]="contact.address.zip" name="zip" /></dd>
+              <dt>City:</dt>
+              <dd><input [(ngModel)]="contact.address.city" name="city" /></dd>
+            </dl>
+          </trm-tab>
+        </trm-tabs>
       </md-card-content>
       <md-card-actions fxLayout fxLayoutAlign="center center">
         <a md-button (click)="save(contact)" title="Save">Save</a>
