@@ -1,5 +1,5 @@
 import { TabComponent } from './../tab/tab.component';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, QueryList, ContentChildren, AfterContentInit } from '@angular/core';
 
 @Component({
   selector: 'trm-tabs',
@@ -7,24 +7,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./tabs.component.css']
 })
 
-export class TabsComponent implements OnInit {
-
-  tabs: Array<TabComponent> = [];
-
+export class TabsComponent implements AfterContentInit {
+  @ContentChildren(TabComponent)
+  tabs: QueryList<TabComponent>;
   constructor() { }
 
-  ngOnInit() {
+  ngAfterContentInit() {
+    this.selectTab(this.tabs.first);
   }
 
-  addTab(tab: TabComponent) {
-    if (this.tabs.length === 0) {
-      this.select(tab);
-    }
-
-    this.tabs.push(tab);
-  }
-
-  select(selectedTab: TabComponent) {
+  selectTab(selectedTab: TabComponent) {
     this.tabs.forEach(tab => tab.selected = false);
     selectedTab.selected = true;
   }

@@ -7,15 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./tab.component.css']
 })
 
-export class TabComponent implements OnInit {
-
+export class TabComponent {
   @Input() selected: boolean = false;
   @Input() title: string = '';
-
-  constructor(private parent: TabsComponent) { }
-
-  ngOnInit() {
-    this.parent.addTab(this);
-  }
-
 }
