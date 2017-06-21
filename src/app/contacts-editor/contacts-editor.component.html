@@ -1,10 +1,12 @@
 <div class="trm-contacts-editor">
+
   <md-card *ngIf="contact | async as contact">
     <md-card-title-group class="fullBleed editing">
       <img md-card-md-image [src]="contact?.image">
       <md-card-title>{{ contact?.image }}</md-card-title>
       <md-card-subtitle>{{ contact?.email }}</md-card-subtitle>
     </md-card-title-group>
+
     <md-card-content>
 
       <trm-tabs>
@@ -48,4 +50,5 @@
       <button md-button (click)="cancel(contact)" title="Cancel editing">Cancel</button>
     </md-card-actions>
   </md-card>
+
 </div>
