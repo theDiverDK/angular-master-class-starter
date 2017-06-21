@@ -25,7 +25,7 @@ export class TabsComponent implements OnInit {
   }
 
   select(selectedTab: TabComponent) {
-    this.tabs.forEach(tab=>tab.selected=false);
-    selectedTab.selected=true;
+    this.tabs.forEach(tab => tab.selected = false);
+    selectedTab.selected = true;
   }
 }
