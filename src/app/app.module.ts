@@ -12,13 +12,14 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { ContactsAppComponent } from './app.component';
 import { ContactService } from './contact.service';
 import { ContactsListComponent } from './contacts-list/contacts-list.component';
-import { ContactsDetailsComponent } from './contacts-details/contacts-details.component';
+import { ContactsDetailsComponent } from './contacts-detail/contacts-detail.component';
 import { FormsModule } from '@angular/forms';
 import { ContactsEditorComponent } from './contacts-editor/contacts-editor.component';
+import { ContactsDetailViewComponent } from './contacts-detail-view/contacts-detail-view.component';
 
 
 @NgModule({
-  declarations: [ContactsAppComponent, ContactsListComponent, ContactsDetailsComponent, ContactsEditorComponent],
+  declarations: [ContactsAppComponent, ContactsListComponent, ContactsDetailsComponent, ContactsEditorComponent, ContactsDetailViewComponent],
   imports: [
     HttpModule,
     FormsModule,
