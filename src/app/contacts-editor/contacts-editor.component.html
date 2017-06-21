@@ -1,36 +1,51 @@
-<div class="trm-contacts-detail">
-  <form>
-    <md-card *ngIf="contact | async as contact">
-      <md-card-content>
-        <trm-tabs>
-          <trm-tab title="General" fxLayout="column">
-            <dl>
-              <dt>Name:</dt>
-              <dd> <input [(ngModel)]="contact.name" name="name" /></dd>
-              <dt>Phone:</dt>
-              <dd><input [(ngModel)]="contact.phone" name="phone" /></dd>
-              <dt>Website:</dt>
-              <dd><input [(ngModel)]="contact.website" name="website" /></dd>
-              <dt>Birthday:</dt>
-              <dd><input [(ngModel)]="contact.birthday" name="birthday" /></dd>
-            </dl>
-          </trm-tab>
-          <trm-tab title="Address" fxLayout="column">
-            <dl>
-              <dt>Street:</dt>
-              <dd><input [(ngModel)]="contact.address.street" name="street" /></dd>
-              <dt>Zip:</dt>
-              <dd><input [(ngModel)]="contact.address.zip" name="zip" /></dd>
-              <dt>City:</dt>
-              <dd><input [(ngModel)]="contact.address.city" name="city" /></dd>
-            </dl>
-          </trm-tab>
-        </trm-tabs>
-      </md-card-content>
-      <md-card-actions fxLayout fxLayoutAlign="center center">
-        <a md-button (click)="save(contact)" title="Save">Save</a>
-        <a md-button (click)="cancel()" title="Cancel">Cancel</a>
-      </md-card-actions>
-    </md-card>
-  </form>
+<div class="trm-contacts-editor">
+  <md-card *ngIf="contact | async as contact">
+    <md-card-title-group class="fullBleed editing">
+      <img md-card-md-image [src]="contact?.image">
+      <md-card-title>{{ contact?.image }}</md-card-title>
+      <md-card-subtitle>{{ contact?.email }}</md-card-subtitle>
+    </md-card-title-group>
+    <md-card-content>
+
+      <trm-tabs>
+        <trm-tab title="General" fxLayout="column">
+          <md-input-container fxFlex>
+            <input mdInput placeholder="Name" name="name" [(ngModel)]="contact.name">
+          </md-input-container>
+          <md-input-container fxFlex>
+            <input mdInput placeholder="Email" name="email" [(ngModel)]="contact.email">
+          </md-input-container>
+          <md-input-container fxFlex>
+            <input mdInput placeholder="Phone" name="phone" [(ngModel)]="contact.phone">
+          </md-input-container>
+          <md-input-container fxFlex>
+            <input mdInput placeholder="Website" name="website" [(ngModel)]="contact.website">
+          </md-input-container>
+          <md-input-container fxFlex>
+            <input mdInput placeholder="Birthday" name="birthday" type="date" [(ngModel)]="contact.birthday">
+          </md-input-container>
+        </trm-tab>
+        <trm-tab title="Address" fxLayout="column">
+          <fieldset fxLayout="column">
+            <legend>Address</legend>
+            <md-input-container fxFlex>
+              <input mdInput placeholder="Street" name="street" [(ngModel)]="contact.address.street">
+            </md-input-container>
+            <md-input-container fxFlex>
+              <input mdInput placeholder="Zip" name="zip" [(ngModel)]="contact.address.zip">
+            </md-input-container>
+            <md-input-container fxFlex>
+              <input mdInput placeholder="City" name="city" [(ngModel)]="contact.address.city">
+            </md-input-container>
+          </fieldset>
+        </trm-tab>
+      </trm-tabs>
+
+    </md-card-content>
+
+    <md-card-actions fxLayout fxLayoutAlign="center center">
+      <button md-button (click)="save(contact)" title="Save contact">Save</button>
+      <button md-button (click)="cancel(contact)" title="Cancel editing">Cancel</button>
+    </md-card-actions>
+  </md-card>
 </div>
