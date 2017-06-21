@@ -1,4 +1,5 @@
-<trm-contacts-detail [contact]="contact"
+<!-- why the $event ?-->
+<trm-contacts-detail [contact]="contact | async"
                (edit)="navigateToEditor($event)"
                (back)="navigateToList()">
 </trm-contacts-detail>

@@ -1,9 +1,9 @@
-import { Observable } from 'rxjs/Observable';
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { ActivatedRoute, Router } from "@angular/router";
 
 import { Contact } from './../models/contact';
 import { ContactService } from './../contact.service';
-import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
   selector: 'trm-contacts-detail',
@@ -12,18 +12,10 @@ import { ActivatedRoute, Router } from "@angular/router";
 })
 
 export class ContactsDetailsComponent implements OnInit {
-  @Input() contact: Observable<Contact>;
+  @Input() contact: Contact;
   @Output() edit = new EventEmitter<Contact>();
   @Output() back = new EventEmitter<void>();
 
   ngOnInit() {
-  }
-
-  navigateBack(){
-    this.back.emit();
-  }
-
-  editContact(contact: Contact){
-    this.edit.emit(contact);
   }
 }

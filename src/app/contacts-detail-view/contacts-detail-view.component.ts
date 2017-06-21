@@ -1,15 +1,16 @@
-import { ContactService } from './../contact.service';
-import { Contact } from './../models/contact';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
-import { Router, ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 
+import { Contact } from './../models/contact';
+import { ContactService } from './../contact.service';
 
 @Component({
   selector: 'trm-contacts-detail-view',
   templateUrl: './contacts-detail-view.component.html',
   styleUrls: ['./contacts-detail-view.component.css']
 })
+
 export class ContactsDetailViewComponent implements OnInit {
   contact: Observable<Contact>;
 
