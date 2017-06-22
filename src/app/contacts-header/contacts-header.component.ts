@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { EventBusService } from "../shared/eventBusService";
 
 @Component({
   selector: 'trm-contacts-header',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContactsHeaderComponent implements OnInit {
 
-  constructor() {}
+  title: string = '';
+
+  constructor(private eventBus: EventBusService) { }
 
   ngOnInit() {
+    this.eventBus.observe('appTitleChange')
+      .subscribe(title => this.title = title);
   }
 
 }

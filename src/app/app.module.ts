@@ -1,3 +1,4 @@
+import { ContactsHeaderComponent } from './contacts-header/contacts-header.component';
 import { EventBusService } from './shared/eventBusService';
 import { RouterModule } from '@angular/router'
 import { APP_ROUTES } from './app.routes'
@@ -20,7 +21,13 @@ import { ContactsDetailViewComponent } from './contacts-detail-view/contacts-det
 
 
 @NgModule({
-  declarations: [ContactsAppComponent, ContactsListComponent, ContactsDetailsComponent, ContactsEditorComponent, ContactsDetailViewComponent],
+  declarations: [
+    ContactsAppComponent,
+    ContactsListComponent,
+    ContactsDetailsComponent,
+    ContactsEditorComponent,
+    ContactsDetailViewComponent,
+    ContactsHeaderComponent],
   imports: [
     HttpModule,
     FormsModule,
