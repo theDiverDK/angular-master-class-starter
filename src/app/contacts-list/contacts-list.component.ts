@@ -1,3 +1,5 @@
+import { ApplicationState } from './../state-management/index';
+import { LoadContactsSuccessAction } from './../state-management/contacts/contacts.actions';
 import { Observable } from 'rxjs/Observable';
 import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
@@ -11,6 +13,7 @@ import 'rxjs/add/operator/switchMap'
 import 'rxjs/add/operator/merge'
 import 'rxjs/add/operator/delay'
 import 'rxjs/add/operator/takeUntil'
+import { Store } from "@ngrx/store";
 
 @Component({
   selector: 'trm-contacts-list',
@@ -19,22 +22,26 @@ import 'rxjs/add/operator/takeUntil'
 })
 
 export class ContactsListComponent implements OnInit {
-  contacts: Observable<Array<Contact>>;
+  contacts$: Observable<Array<Contact>>;
 
   terms$ = new Subject<string>();
 
-  constructor(private contactService: ContactService, private eventBus: EventBusService) {
+  constructor(
+    private contactsService: ContactService,
+    private store: Store<ApplicationState>
+  ) {
   }
 
   ngOnInit() {
-    this.contacts = this.terms$
-      .debounceTime(400)
-      .distinctUntilChanged() // observable<string> stringen er term
-      .switchMap(term => this.contactService.search(term)) // nu en observable<array<contact>>
-      .merge(this.contactService.getContacts().delay(1).takeUntil(this.terms$)); // bliver kun udført en gang, da den bliver udført og så afslutter den, og bliver derfor aldrig kørt igen, takeUntil gør at skulle this.term$ blive udført så afbryder den getContacts
-    // meget af dette kode burde ligge i servicen, kun merge skal være her.
-    // tilføj onErrorResume og return tom svar, både på getCOntacts, og search
-    // så kan app'en håndtere at den mister forbindelse til serveren midlertidigt.
-    this.eventBus.emit('appTitleChange', 'Contacts');
+    let query = (state) => state.contacts.list;
+    this.contacts$ = this.store.select(query);
+
+    this.contactsService
+      .getContacts()
+      .subscribe(contacts => {
+        this.store.dispatch(
+          new LoadContactsSuccessAction(contacts)
+        );
+      });
   }
 }

@@ -1,3 +1,4 @@
+import { ROOT_REDUCER } from './state-management/index';
 import { ContactsHeaderComponent } from './contacts-header/contacts-header.component';
 import { EventBusService } from './shared/eventBusService';
 import { RouterModule } from '@angular/router'
@@ -18,6 +19,7 @@ import { ContactsDetailsComponent } from './contacts-detail/contacts-detail.comp
 import { FormsModule } from '@angular/forms';
 import { ContactsEditorComponent } from './contacts-editor/contacts-editor.component';
 import { ContactsDetailViewComponent } from './contacts-detail-view/contacts-detail-view.component';
+import { StoreModule } from "@ngrx/store";
 
 
 @NgModule({
@@ -35,7 +37,8 @@ import { ContactsDetailViewComponent } from './contacts-detail-view/contacts-det
     BrowserAnimationsModule,
     MaterialModule,
     FlexLayoutModule,
-    RouterModule.forRoot(APP_ROUTES)
+    RouterModule.forRoot(APP_ROUTES),
+    StoreModule.provideStore(ROOT_REDUCER)
   ],
   providers: [ContactService, EventBusService],
   bootstrap: [ContactsAppComponent]
