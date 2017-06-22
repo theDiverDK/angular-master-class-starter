@@ -1,5 +1,6 @@
+import { ContactsState } from './contacts.reducer';
 import { Contact } from '../../models/contact';
-import { ContactsActions, ContactsActionTypes } from "./contacts.actions";
+import { ContactsActions, ContactsActionTypes, LoadContactsSuccessAction } from "./contacts.actions";
 
 export interface ContactsState {
   list: Array<Contact>;
@@ -11,15 +12,14 @@ const INITIAL_STATE: ContactsState = {
   selectedContactId: null
 }
 
-
 export function contactsReducer(
-  state = INITIAL_STATE,
+  state: ContactsState = INITIAL_STATE,
   action: ContactsActions
 ) {
-  debugger;
   switch (action.type) {
     case ContactsActionTypes.LOAD_CONTACTS_SUCCESS:
-      break;
+      let result = { ...state, list: action.payload }
+      return result;
     default:
       return state;
   }

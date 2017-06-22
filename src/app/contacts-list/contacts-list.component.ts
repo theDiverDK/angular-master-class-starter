@@ -1,3 +1,4 @@
+import { ChangeTitleAction } from './../state-management/title/title.actions';
 import { ApplicationState } from './../state-management/index';
 import { LoadContactsSuccessAction } from './../state-management/contacts/contacts.actions';
 import { Observable } from 'rxjs/Observable';
@@ -33,8 +34,7 @@ export class ContactsListComponent implements OnInit {
   }
 
   ngOnInit() {
-    let query = (state) => state.contacts.list;
-    this.contacts$ = this.store.select(query);
+    this.contacts$ = this.store.select(state => state.contacts.list);
 
     this.contactsService
       .getContacts()
@@ -43,5 +43,7 @@ export class ContactsListComponent implements OnInit {
           new LoadContactsSuccessAction(contacts)
         );
       });
+
+    this.store.dispatch(new ChangeTitleAction("Contacts"))
   }
 }

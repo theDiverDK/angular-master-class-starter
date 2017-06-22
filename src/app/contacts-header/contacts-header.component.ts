@@ -1,5 +1,8 @@
+import { ApplicationState } from './../state-management/index';
+
+import { Observable } from 'rxjs/Observable';
 import { Component, OnInit } from '@angular/core';
-import { EventBusService } from "../shared/eventBusService";
+import { Store } from "@ngrx/store";
 
 @Component({
   selector: 'trm-contacts-header',
@@ -8,13 +11,12 @@ import { EventBusService } from "../shared/eventBusService";
 })
 export class ContactsHeaderComponent implements OnInit {
 
-  title: string = '';
+  title: Observable<string>;
 
-  constructor(private eventBus: EventBusService) { }
+  constructor(private store: Store<ApplicationState>
+  ) { }
 
   ngOnInit() {
-    this.eventBus.observe('appTitleChange')
-      .subscribe(title => this.title = title);
+    this.title = this.store.select(state => state.title.title);
   }
-
 }
