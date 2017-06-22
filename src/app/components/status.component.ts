@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AppStore } from '../store/app-store';
 
 @Component({
@@ -7,25 +7,27 @@ import { AppStore } from '../store/app-store';
     {{ state.counter }}
     <div class="tip">All Votes!</div>
   `,
-  styles : [
+  styles: [
     `:host {  text-align:center; font-size:1.1em; font-weight: bolder  }`,
     `.tip { font-size:0.7em; padding-top:5px;font-weight: normal;  }`
   ]
 })
-export class StatusComponent {
+
+export class StatusComponent implements OnInit{
 
   state;
 
-  /**
-   * Inject the appStore here and listen
-   * for vote changes!
-   */
   constructor(private store: AppStore) {
-    this.state = store.getState();
-
-    store.subscribe(() => {
-      this.state = store.getState();
-    })
   }
+
+  ngOnInit() {
+    this.state = this.store.getState();
+
+    this.store.subscribe(() => {
+      this.state = this.store.getState();
+    })
+
+  }
+
 }
 
