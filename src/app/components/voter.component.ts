@@ -1,6 +1,8 @@
-import { VoteActions } from './../store/app-store';
-import { Component } from '@angular/core';
-import { AppStore } from '../store/app-store';
+import { VoteActions } from './../votes/vote-actions';
+import { VotesState } from './../votes/vote-state';
+import { APP_STORE } from './../store/app-store'
+import { Store } from './../store/store'
+import { Component, Inject } from '@angular/core';
 
 @Component({
   selector: 'trm-voter',
@@ -27,14 +29,14 @@ export class VoterComponent {
   /**
    * Inject the appstore
    */
-  constructor(private store: AppStore) { }
+  constructor( @Inject(APP_STORE) private store: Store<VotesState>) { }
 
   increment() {
-    this.store.dispatch(VoteActions.YES);
+    this.store.dispatch({ type: VoteActions.YES });
   }
 
   decrement() {
-    this.store.dispatch(VoteActions.NO);
+    this.store.dispatch({ type: VoteActions.NO });
   }
 }
 

@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { AppStore } from '../store/app-store';
+import { ApplicationState } from './../store/root-reducer';
+import { VotesState } from './../votes/vote-state';
+import { Component, OnInit, Inject } from '@angular/core';
+import { Store } from './../store/store'
+import { APP_STORE } from './../store/app-store';
 
 @Component({
   selector: 'trm-status',
@@ -13,18 +16,19 @@ import { AppStore } from '../store/app-store';
   ]
 })
 
-export class StatusComponent implements OnInit{
+export class StatusComponent implements OnInit {
 
   state;
 
-  constructor(private store: AppStore) {
+  constructor( @Inject(APP_STORE) private store: Store<ApplicationState>) {
   }
 
   ngOnInit() {
-    this.state = this.store.getState();
+    this.state = this.store.getState().votes;
 
     this.store.subscribe(() => {
-      this.state = this.store.getState();
+      debugger;
+      this.state = this.store.getState().votes;
     })
 
   }
