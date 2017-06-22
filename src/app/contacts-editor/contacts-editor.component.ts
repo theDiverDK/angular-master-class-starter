@@ -1,3 +1,4 @@
+import { SelectContactAction, UpdateContactAction } from './../state-management/contacts/contacts.actions';
 import { ApplicationState } from './../state-management/index';
 import { ChangeTitleAction } from './../state-management/title/title.actions';
 import { EventBusService } from './../shared/eventBusService';
@@ -16,18 +17,19 @@ import { Store } from "@ngrx/store";
 })
 
 export class ContactsEditorComponent implements OnInit {
-  contact: Contact;// = <Contact>{ address: {} };
+  contact$: Observable<Contact>;// = <Contact>{ address: {} };
 
   constructor(private contactService: ContactService, private route: ActivatedRoute, private router: Router, private store: Store<ApplicationState>) { }
 
   ngOnInit() {
-    let id = this.route.snapshot.params['id'];
+    let contactId = this.route.snapshot.paramMap.get('id');
+    this.store.dispatch(new SelectContactAction(+contactId));
 
-    this.contactService.getContact(id)
-      .subscribe(contact => {
-        this.contact = contact;
-        this.store.dispatch(new ChangeTitleAction(`Edit: ${this.contact.name}`))
-      });
+    this.contact$ = this.store.select(state => {
+      let id = state.contacts.selectedContactId;
+      let contact = state.contacts.list.find(contact => contact.id == id);
+      return Object.assign({}, contact);
+    });
   }
 
   cancel(contact: Contact) {
@@ -35,8 +37,12 @@ export class ContactsEditorComponent implements OnInit {
   }
 
   save(contact: Contact) {
+
     this.contactService.updateContact(contact).subscribe(
-      () => this.goToDetails());
+      () => {
+        this.store.dispatch(new UpdateContactAction(contact));
+        this.goToDetails()
+      });
   }
 
   private goToDetails() {

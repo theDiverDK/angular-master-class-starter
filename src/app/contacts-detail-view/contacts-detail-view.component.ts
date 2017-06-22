@@ -1,3 +1,5 @@
+import { SelectContactAction } from './../state-management/contacts/contacts.actions';
+import { ApplicationState } from './../state-management/index';
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute, Router } from "@angular/router";
@@ -5,6 +7,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { Contact } from './../models/contact';
 import { ContactService } from './../contact.service';
 import { EventBusService } from "../shared/eventBusService";
+import { Store } from "@ngrx/store";
 
 @Component({
   selector: 'trm-contacts-detail-view',
@@ -13,18 +16,23 @@ import { EventBusService } from "../shared/eventBusService";
 })
 
 export class ContactsDetailViewComponent implements OnInit {
-  contact: Contact;
+  contact$: Observable<Contact>;
 
-  constructor(private contactService: ContactService, private route: ActivatedRoute, private router: Router, private eventBus: EventBusService) { }
+  constructor(
+    private contactService: ContactService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private store: Store<ApplicationState>) { }
 
   ngOnInit() {
-    let id = this.route.snapshot.params['id'];
-    this.contactService.getContact(id)
-      .subscribe(x => {
-        this.contact = x;
-        this.eventBus.emit('appTitleChange', this.contact.name);
-      }
-      );
+    let contactId = this.route.snapshot.paramMap.get('id');
+    this.store.dispatch(new SelectContactAction(+contactId));
+
+    this.contact$ = this.store.select(state => {
+      let id = state.contacts.selectedContactId;
+      let contact = state.contacts.list.find(contact => contact.id === id);
+      return Object.assign({}, contact);
+    });
   }
 
   navigateToEditor() {
