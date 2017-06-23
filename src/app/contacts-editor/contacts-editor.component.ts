@@ -28,6 +28,9 @@ export class ContactsEditorComponent implements OnInit {
     this.contact$ = this.store.select(state => {
       let id = state.contacts.selectedContactId;
       let contact = state.contacts.list.find(contact => contact.id == id);
+
+    // this.store.dispatch(new ChangeTitleAction(`Edit : ${contact.name}`))
+
       return Object.assign({}, contact);
     });
   }
@@ -37,7 +40,6 @@ export class ContactsEditorComponent implements OnInit {
   }
 
   save(contact: Contact) {
-
     this.contactService.updateContact(contact).subscribe(
       () => {
         this.store.dispatch(new UpdateContactAction(contact));
